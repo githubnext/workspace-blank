@@ -1,0 +1,12 @@
+{
+  "name": "workspace-blank",
+  "version": "1.0.0",
+  "description": "This repository is empty. Any task executed on it should be considered a new capability and needs to be created.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
