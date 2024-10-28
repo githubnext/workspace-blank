@@ -1,0 +1,19 @@
+# Requirements for AI Server
+
+# Dependencies for AI server
+Flask==2.0.1
+
+# Dependencies for Codium-AI PR-Agent
+git+https://github.com/Celebrum/pr-agent.git
+
+# Dependencies for Ngrok and Nginx
+ngrok==0.1.4
+nginx==1.21.3
+
+# Dependencies for hierarchical cognitive AI system
+numpy==1.21.2
+scipy==1.7.1
+scikit-learn==0.24.2
+
+# Dependencies for SIP communication mapping system
+requests==2.26.0

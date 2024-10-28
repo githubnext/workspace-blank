@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  ai_server:
+    image: ai_server_image
+    container_name: ai_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ai_server_data:/data
+    networks:
+      - ai_network
+
+  ngrok:
+    image: wernight/ngrok
+    container_name: ngrok
+    environment:
+      - NGROK_AUTH=<your_ngrok_auth_token>
+      - NGROK_REGION=us
+    ports:
+      - "4040:4040"
+    networks:
+      - ai_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - ai_network
+
+networks:
+  ai_network:
+    driver: bridge
+
+volumes:
+  ai_server_data:
