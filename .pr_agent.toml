@@ -1,0 +1,33 @@
+[config]
+model="custom_model_name"
+model_turbo="custom_model_name"
+fallback_models=["custom_model_name"]
+custom_model_max_tokens=8000
+
+[ignore]
+glob = ['*.py']
+
+[regex]
+regex = ['.*\.py$']
+
+[pr_description_prompt]
+system="""
+...
+"""
+user="""
+...
+"""
+
+[litellm]
+enable_callbacks = true
+success_callback = ["langsmith"]
+failure_callback = ["langsmith"]
+service_callback = []
+
+[config]
+ignore_pr_title = ["\\[Bump\\]"]
+ignore_pr_source_branches = ['develop', 'main', 'master', 'stage']
+ignore_pr_target_branches = ["qa"]
+
+[extra_instructions]
+update_changelog = "Make sure to update also the version ..."

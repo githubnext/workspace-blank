@@ -1,0 +1,3 @@
+git+https://github.com/Celebrum/pr-agent.git
+ngrok==0.1.4
+nginx==1.21.3
