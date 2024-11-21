@@ -1,0 +1,22 @@
+{
+  "name": "cms-nextjs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "tailwindcss": "latest",
+    "prisma": "latest",
+    "@prisma/client": "latest",
+    "next-auth": "latest",
+    "react-quill": "latest",
+    "@next/plugin-google-analytics": "latest"
+  }
+}
