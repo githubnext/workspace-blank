@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Time Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Sleep Time Calculator</h1>
+    <form id="sleepForm">
+        <label for="hoursBefore">Hours of sleep before newborn (x):</label>
+        <input type="number" id="hoursBefore" name="hoursBefore" required>
+        <br>
+        <label for="hoursAfter">Hours of sleep after newborn (y):</label>
+        <input type="number" id="hoursAfter" name="hoursAfter" required>
+        <br>
+        <button type="submit">Calculate</button>
+    </form>
+    <div id="results">
+        <h2>Results</h2>
+        <p id="weeklyResult"></p>
+        <p id="monthlyResult"></p>
+        <p id="yearlyResult"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
