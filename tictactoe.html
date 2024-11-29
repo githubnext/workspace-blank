@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      transition: background-color 0.3s;
+    }
+
+    .cell:hover {
+      background-color: #e0e0e0;
+    }
+
+    .cell.X {
+      color: #ff4d4d;
+    }
+
+    .cell.O {
+      color: #4da6ff;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .one-more-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      display: none;
+    }
+
+    .one-more-button:hover {
+      background-color: #0056b3;
+    }
+
+    .scores {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="board" id="board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
+  <div class="message" id="message"></div>
+  <button class="one-more-button" id="oneMoreButton">One More</button>
+  <div class="scores" id="scores">
+    Games Played: <span id="gamesPlayed">0</span><br>
+    Human Wins: <span id="humanWins">0</span><br>
+    Computer Wins: <span id="computerWins">0</span><br>
+    Draws: <span id="draws">0</span>
+  </div>
+
+  <script>
+    const board = document.getElementById('board');
+    const message = document.getElementById('message');
+    const oneMoreButton = document.getElementById('oneMoreButton');
+    const gamesPlayedSpan = document.getElementById('gamesPlayed');
+    const humanWinsSpan = document.getElementById('humanWins');
+    const computerWinsSpan = document.getElementById('computerWins');
+    const drawsSpan = document.getElementById('draws');
+    let boardState = Array(9).fill(null);
+    let currentPlayer = 'X';
+    let humanStarts = true;
+    let gamesPlayed = 0;
+    let humanWins = 0;
+    let computerWins = 0;
+    let draws = 0;
+
+    function handleClick(event) {
+      const cell = event.target;
+      const index = cell.getAttribute('data-index');
+
+      if (boardState[index] || checkWinner() || checkDraw()) return;
+
+      boardState[index] = currentPlayer;
+      cell.textContent = currentPlayer;
+      cell.classList.add(currentPlayer);
+
+      if (checkWinner()) {
+        endGame(`Player ${currentPlayer} wins!`);
+        return;
+      }
+
+      if (checkDraw()) {
+        endGame('It\'s a draw!');
+        return;
+      }
+
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      if (currentPlayer === 'O') {
+        setTimeout(computerMove, 500);
+      }
+    }
+
+    function computerMove() {
+      let bestScore = -Infinity;
+      let move;
+
+      for (let i = 0; i < boardState.length; i++) {
+        if (boardState[i] === null) {
+          boardState[i] = 'O';
+          let score = minimax(boardState, 0, false);
+          boardState[i] = null;
+          if (score > bestScore) {
+            bestScore = score;
+            move = i;
+          }
+        }
+      }
+
+      boardState[move] = 'O';
+      board.children[move].textContent = 'O';
+      board.children[move].classList.add('O');
+
+      if (checkWinner()) {
+        endGame('Computer wins!');
+        return;
+      }
+
+      if (checkDraw()) {
+        endGame('It\'s a draw!');
+        return;
+      }
+
+      currentPlayer = 'X';
+    }
+
+    function minimax(state, depth, isMaximizing) {
+      if (checkWinner('O')) return 1;
+      if (checkWinner('X')) return -1;
+      if (checkDraw()) return 0;
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < state.length; i++) {
+          if (state[i] === null) {
+            state[i] = 'O';
+            let score = minimax(state, depth + 1, false);
+            state[i] = null;
+            bestScore = Math.max(score, bestScore);
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < state.length; i++) {
+          if (state[i] === null) {
+            state[i] = 'X';
+            let score = minimax(state, depth + 1, true);
+            state[i] = null;
+            bestScore = Math.min(score, bestScore);
+          }
+        }
+        return bestScore;
+      }
+    }
+
+    function checkWinner(player = currentPlayer) {
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+
+      return winPatterns.some(pattern => pattern.every(index => boardState[index] === player));
+    }
+
+    function checkDraw() {
+      return boardState.every(cell => cell !== null);
+    }
+
+    function endGame(result) {
+      message.textContent = result;
+      oneMoreButton.style.display = 'block';
+      gamesPlayed++;
+
+      if (result.includes('Player')) {
+        humanWins++;
+      } else if (result.includes('Computer')) {
+        computerWins++;
+      } else {
+        draws++;
+      }
+
+      gamesPlayedSpan.textContent = gamesPlayed;
+      humanWinsSpan.textContent = humanWins;
+      computerWinsSpan.textContent = computerWins;
+      drawsSpan.textContent = draws;
+    }
+
+    function restartGame() {
+      boardState = Array(9).fill(null);
+      currentPlayer = humanStarts ? 'X' : 'O';
+      message.textContent = '';
+      oneMoreButton.style.display = 'none';
+      for (let cell of board.children) {
+        cell.textContent = '';
+        cell.classList.remove('X', 'O');
+      }
+      humanStarts = !humanStarts;
+      if (currentPlayer === 'O') {
+        setTimeout(computerMove, 500);
+      }
+    }
+
+    board.addEventListener('click', handleClick);
+    oneMoreButton.addEventListener('click', restartGame);
+
+    // Start the game with human player
+    if (!humanStarts) {
+      setTimeout(computerMove, 500);
+    }
+  </script>
+</body>
+
+</html>
