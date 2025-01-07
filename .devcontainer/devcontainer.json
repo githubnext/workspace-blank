@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test": "flutter test",
+    "build": "flutter pub get",
+    "launch": "flutter run"
+  }
+}
