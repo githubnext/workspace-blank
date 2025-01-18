@@ -1,0 +1,30 @@
+{
+  "description": "This file contains mappings for custom and existing emojis to represent different code blocks.",
+  "emojis": {
+    "function": "🔧",
+    "variable": "🔤",
+    "loop": "🔄",
+    "conditional": "❓",
+    "class": "🏫",
+    "import": "📦",
+    "comment": "💬",
+    "custom": {
+      "database": "🗄️",
+      "api": "🔌",
+      "authentication": "🔑",
+      "authorization": "🔒",
+      "frontend": "🎨",
+      "backend": "🛠️",
+      "networking": "🌐",
+      "file_handling": "📁",
+      "user_interface": "🖥️"
+    },
+    "for_loop": "🔁",
+    "while_loop": "🔂",
+    "if_conditional": "🔍",
+    "elif_conditional": "🔎",
+    "else_conditional": "🔚",
+    "nested_structure": "📚",
+    "complex_structure": "🏗️"
+  }
+}
