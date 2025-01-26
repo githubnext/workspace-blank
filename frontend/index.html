@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game World Configuration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Game World Configuration</h1>
+    </header>
+    <main>
+        <section id="npc-configuration">
+            <h2>NPC Configuration</h2>
+            <form id="npc-form">
+                <label for="npc-id">NPC ID:</label>
+                <input type="text" id="npc-id" name="npc-id" required>
+                <label for="npc-name">Name:</label>
+                <input type="text" id="npc-name" name="npc-name" required>
+                <label for="npc-traits">Traits (JSON):</label>
+                <textarea id="npc-traits" name="npc-traits" required></textarea>
+                <label for="npc-memory">Memory (JSON):</label>
+                <textarea id="npc-memory" name="npc-memory" required></textarea>
+                <label for="npc-directives">Directives (JSON):</label>
+                <textarea id="npc-directives" name="npc-directives" required></textarea>
+                <label for="npc-location">Location:</label>
+                <input type="text" id="npc-location" name="npc-location" required>
+                <button type="submit">Save NPC</button>
+            </form>
+        </section>
+        <section id="storylet-configuration">
+            <h2>Storylet Configuration</h2>
+            <form id="storylet-form">
+                <label for="storylet-id">Storylet ID:</label>
+                <input type="text" id="storylet-id" name="storylet-id" required>
+                <label for="storylet-conditions">Conditions (JSON):</label>
+                <textarea id="storylet-conditions" name="storylet-conditions" required></textarea>
+                <label for="storylet-priority">Priority:</label>
+                <input type="number" id="storylet-priority" name="storylet-priority" required>
+                <label for="storylet-content">Content (JSON):</label>
+                <textarea id="storylet-content" name="storylet-content" required></textarea>
+                <label for="storylet-outcomes">Outcomes (JSON):</label>
+                <textarea id="storylet-outcomes" name="storylet-outcomes" required></textarea>
+                <button type="submit">Save Storylet</button>
+            </form>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
